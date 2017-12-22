@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx.xsd">
+	<!-- 配置数据源 -->
+	<!-- <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		指定连接数据库的驱动
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		指定连接数据库的URL
+		<property name="url" value="jdbc:mysql://localhost:3306/person_finance" />
+		指定连接数据库的用户名
+		<property name="username" value="root" />
+		指定连接数据库的密码
+		<property name="password" value="123456" />
+	</bean> -->
+	
+	
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"></property>
+		<property name="url" value="jdbc:sqlserver://192.168.0.147:1433;databaseName=DAS"></property>
+		<property name="username" value="sa"></property>
+		<property name="password" value="123456"></property>
+	</bean>
+	
+	
+	
+	<!-- 配置SessionFactory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.SQLServerDialect
+				</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.connection.autocommit">true</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="sql_format">true</prop>
+			</props>
+		</property>
+		<property name="mappingResources">
+			<!-- 指定hibernate映射文件 -->
+			<list>
+				<value>com/elite/vo/OriginalData.hbm.xml</value>
+				<value>com/elite/vo/Indextable.hbm.xml</value>
+				<value>com/elite/vo/KeyWord.hbm.xml</value>
+				<value>com/elite/vo/Filtrate.hbm.xml</value>
+				<value>com/elite/vo/UserTable.hbm.xml</value>
+				<value>com/elite/vo/IndexData.hbm.xml</value>
+				<value>com/elite/vo/Dtype.hbm.xml</value>
+				<value>com/elite/vo/Synonyms.hbm.xml</value>
+				<value>com/elite/vo/Word.hbm.xml</value>
+			</list>
+		</property>
+	</bean>
+	
+	
+	
+	<!-- action配置 =======================================-->
+	
+	<!-- OriginalData配置 -->
+	<bean id="originalDataAction" class="com.elite.action.OriginalDataAction">
+		<property name="originalDataService" ref="originalDataService"></property>
+		<property name="originalData" ref="originalData"></property>
+		<property name="outPutExcel" ref="outPutExcel"></property>
+		<property name="outPutExcelFiltrate" ref="outPutExcelFiltrate"></property>
+	</bean>
+	<!-- 富文本编辑器注入 -->
+	<!-- <bean id="ckAction" class="com.elite.action.CKAction"></bean> -->
+	
+	<!-- Indextable的action配置 -->
+	<bean id="indextableAction" class="com.elite.action.IndextableAction">
+		<property name="indextableService" ref="indextableService"></property>
+		<property name="indextable" ref="indextable"></property>
+		<property name="keyWordService" ref="keyWordService"></property>
+		<property name="indexDataService" ref="indexDataService"></property>
+		<property name="originalDataService" ref="originalDataService"></property>
+	</bean>
+	
+	<!-- keyWord的action配置 -->
+	<bean id="keyWordAction" class="com.elite.action.KeyWordAction">
+		<property name="keyWordService" ref="keyWordService"></property>
+		<property name="originalDataService" ref="originalDataService"></property>
+		<property name="filtrateService" ref="filtrateService"></property>
+		<property name="indexDataService" ref="indexDataService"></property>
+	</bean>
+
+	<!-- Filtrate的action -->
+	<bean id="filtrateAction" class="com.elite.action.FiltrateAction">
+		<property name="filtrateService" ref="filtrateService"></property>
+		<property name="keyWordService" ref="keyWordService"></property>
+		<property name="outPutExcelFiltrate" ref="outPutExcelFiltrate"></property>
+	</bean>
+	<!-- fileUploadAction -->
+	<bean id="fileUploadAction" class="com.elite.action.FileUploadAction">
+		<property name="originalDataService" ref="originalDataService"></property>
+		<property name="indextableService" ref="indextableService"></property>
+		<property name="keyWordService" ref="keyWordService"></property>
+		<property name="poiUtil" ref="poiUtil"></property>
+	</bean>
+	
+	<!-- userTable的action -->
+	<bean id="userAction" class="com.elite.action.UserAction">
+		<property name="userService" ref="userService"></property>
+	</bean>
+	
+	<!-- 跳转到登录页面的action -->
+	<bean id="loginAction" class="com.elite.action.LoginAction">
+	</bean>
+	
+	
+	<!-- service层的配置==================================== -->
+	
+	<bean id="originalDataService" class="com.elite.service.impl.OriginalDataServiceImpl">
+		<property name="originalDataDao" ref="originalDataDao"></property>
+		<property name="indexDataService" ref="indexDataService"></property>
+		<property name="indextableService" ref="indextableService"></property>
+		<property name="sort" ref="sort"></property>
+		<property name="dtypeService" ref="dtypeService"></property>
+	</bean>
+	
+	<!-- indextable -->
+	<bean id="indextableService" class="com.elite.service.impl.IndextableServiceImpl">
+		<property name="indextableDao" ref="indextableDao"></property>
+	</bean>
+	<!-- keyWord的service配置 -->
+	<bean id="keyWordService" class="com.elite.service.impl.KeyWordServiceImpl">
+		<property name="keyWordDao" ref="keyWordDao"></property>
+	</bean>
+	<!-- Filtrate的service配置 -->
+	<bean id="filtrateService" class="com.elite.service.impl.FiltrateServiceImpl">
+		<property name="filtrateDao" ref="filtrateDao"></property>
+	</bean>
+	<!-- service层配置 -->
+	<bean id="userService" class="com.elite.service.impl.UserServiceImpl">
+		<property name="userDao" ref="userDao"></property>
+	</bean>
+	<!-- IndexData  service层配置 -->
+	<bean id="indexDataService" class="com.elite.service.impl.IndexDataServiceImpl">
+		<property name="indexDataDao" ref="indexDataDao"></property>
+	</bean>
+	<bean id="dtypeService" class="com.elite.service.impl.DtypeServiceImpl">
+		<property name="dtypeDao" ref="dtypeDao"></property>
+	</bean>
+	
+	
+	<!-- dao层的配置======================================= -->
+	<bean id="originalDataDao" class="com.elite.dao.impl.OriginalDataDaoImpl"> 
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- indextable -->
+	<bean id="indextableDao" class="com.elite.dao.impl.IndextableDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- keyWord -->
+	<bean id="keyWordDao" class="com.elite.dao.impl.KeyWordDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- Filtrate的dao层配置 -->
+	<bean id="filtrateDao" class="com.elite.dao.impl.FiltrateDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="userDao" class="com.elite.dao.impl.UserDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- indexData的dao层配置 -->
+	<bean id="indexDataDao" class="com.elite.dao.impl.IndexDataDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="dtypeDao" class="com.elite.dao.impl.DtypeDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<!-- 普通类的配置 -->
+	<!-- 实体类的依赖注入 -->
+	<bean id="readExcel" class="com.elite.excel.ReadExcel"></bean>
+	<bean id="indexData" class="com.elite.vo.IndexData"></bean>
+	<bean id="originalData" class="com.elite.vo.OriginalData"></bean>
+	<bean id="indextable" class="com.elite.vo.Indextable"></bean>
+	<bean id="keyWord" class="com.elite.vo.KeyWord"></bean>
+	<bean id="filtrate" class="com.elite.vo.Filtrate"></bean>
+	<bean id="user" class="com.elite.vo.UserTable"></bean>
+	<bean id="outPutExcelFiltrate" class="com.elite.excel.OutPutExcelFiltrate">
+		<property name="indextableService" ref="indextableService"></property>
+		<property name="keyWordService" ref="keyWordService"></property>
+	</bean>
+	<bean id="outPutExcel" class="com.elite.excel.OutPutExcel">
+		<property name="sort" ref="sort"></property>
+	</bean>
+	<bean id="sort" class="com.elite.index.Sort">
+		<property name="indextableService" ref="indextableService"></property>
+		<property name="keyWordService" ref="keyWordService"></property>
+		<property name="originalDataService" ref="originalDataService"></property>
+		<property name="indexDataService" ref="indexDataService"></property>
+		<property name="dtypeService" ref="dtypeService"></property>
+	</bean>
+	<bean id="poiUtil" class="com.elite.util.POIUtil"></bean>
+	
+</beans>

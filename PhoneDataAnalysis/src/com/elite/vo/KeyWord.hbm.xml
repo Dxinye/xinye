@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.elite.vo.KeyWord" table="keyword" schema="dbo" catalog="DAS">
+		<id name="keywordID" type="java.lang.Integer">
+			<column name="keywordID" />
+          	<generator class="identity" />
+        </id>
+        <property name="keyValue" type="string">
+            <column name="keyvalue" />
+        </property>
+        <property name="indexId" type="java.lang.Integer">
+            <column name="indexid" />
+        </property>
+        <property name="keyColumn" type="java.lang.Integer">
+            <column name="keycolumn" />
+        </property>
+        <property name="clientAndservice" type="java.lang.Integer">
+            <column name="clientAndservice" />
+        </property>
+        <property name="isUse" type="java.lang.Integer">
+            <column name="isUse" />
+        </property>
+        
+	</class>
+</hibernate-mapping>

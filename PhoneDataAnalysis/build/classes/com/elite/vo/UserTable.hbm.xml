@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-7-5 11:41:52 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.elite.vo.UserTable" table="UserTable" schema="dbo" catalog="DAS">
+        <id name="userId" type="java.lang.Integer">
+            <column name="user_id" />
+            <generator class="identity" />
+        </id>
+        <property name="userName" type="string">
+            <column name="user_name" length="20"/>
+        </property>
+        <property name="userPassword" type="string">
+            <column name="user_password" length="20"/>
+        </property>
+        <property name="realName" type="string">
+        	<column name="real_name" length="20"></column>
+        </property>
+       <property name="userRank" type="java.lang.Integer">
+        	<column name="user_rank"></column>
+        </property>
+        <property name="userIsActivate" type="java.lang.Integer">
+        	<column name="user_isactivate"></column>
+        </property>
+		
+        
+    </class>
+</hibernate-mapping>

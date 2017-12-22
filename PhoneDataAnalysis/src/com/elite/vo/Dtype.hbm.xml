@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-7-5 11:41:52 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.elite.vo.Dtype" table="Dtype" schema="dbo" catalog="DAS">
+        <id name="typeId" type="java.lang.Integer">
+            <column name="typeId" />
+            <generator class="identity" />
+        </id>
+       <property name="dataType" type="string">
+        	<column name="dataType"></column>
+        </property>
+        <property name="dataId" type="java.lang.Integer">
+        	<column name="dataId"></column>
+        </property>
+		
+        
+    </class>
+</hibernate-mapping>

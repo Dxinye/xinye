@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-7-5 11:41:52 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.elite.vo.Word" table="word" schema="dbo" catalog="DAS">
+        <id name="wordId" type="java.lang.Integer">
+            <column name="wordId" />
+            <generator class="identity" />
+        </id>
+       <property name="wordValue" type="string">
+        	<column name="wordValue"></column>
+        </property>
+        <property name="synonymsID" type="java.lang.Integer">
+        	<column name="synonymsID"></column>
+        </property>
+    </class>
+</hibernate-mapping>

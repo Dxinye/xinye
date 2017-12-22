@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	
+	
+	
+	
+	
+	
+ 	 <!-- 设置字符编码 -->
+    <constant name="struts.i18n.encoding" value="utf-8" />
+    <!-- 设置自动装载国际化 -->
+    <constant name="struts.i18n.reload" value="true" />
+    <!-- 设置动态方法调用 -->
+    <constant name="struts.enable.DnamicMethodInvocation" value="true" />
+    <!-- 设置开发模式 -->
+    <constant name="struts.devMode" value="true" />
+    <!-- 指定每次配置文件更改后，自动重新加载 -->
+    <constant name="struts.configuration.xml.reload" value="true" />
+    <!-- 设置访问方式 -->
+    <constant name="struts.action.extension" value="action,," />
+    <!-- 去除多余的格式 -->
+    <constant name="struts.ui.theme" value="simple" />
+    <!--设置上传文件大小500MB，默认为500MB大小 -->
+    <constant name="struts.multipart.maxSize" value="524288000"></constant>
+    
+    
+	<package name="PhoneDataAnalysis" extends="struts-default" namespace="/">
+		<!-- 注册拦截器 -->
+		 <interceptors>  
+        <!--     注册自定义拦截器，管理用户权限 -->
+            <interceptor name="loginInteceptor" class="com.elite.util.LoginInterceptor">
+            	<param name="excludeMethods">loginUser,loginFirst,JumpRegist,userRegist,findUserName</param>
+            </interceptor>
+         <!--    自定义拦截器栈，包含登录拦截器和默认拦截器 -->
+            <interceptor-stack name="myStack">  
+           		   <interceptor-ref name="defaultStack"></interceptor-ref> 
+                   <interceptor-ref name="loginInteceptor"></interceptor-ref>  
+            </interceptor-stack>  
+		</interceptors>  
+		<!-- 指定所有action引用该拦截器 -->
+		<default-interceptor-ref name="myStack"/>
+	
+		<!-- 文件上传配置 -->
+        <action name="fileupload_*" class="fileUploadAction" method="{1}">
+            <!-- 文件上传到user目录下-->
+            <param name="path">/user</param>
+            <!-- 设置上传文件的大小为500m -->
+            <param name="size">524288000</param>
+        </action>
+        
+       
+		
+		<!-- OriginalData -->
+		<action name="originalData_*" class="originalDataAction" method="{1}">
+			<result name="insert">/WEB-INF/jsp/out_success.jsp</result>
+			<result name="originalList">/WEB-INF/jsp/original_list.jsp</result>
+			<result name="originalListRank">/WEB-INF/jsp/original_list_Rank3.jsp</result>
+			<result name="login">/WEB-INF/jsp/login.jsp</result>
+		</action>
+		
+		<!-- index -->
+		<action name="index_*" class="indextableAction" method="{1}">
+			<result name="index">/WEB-INF/jsp/index_success.jsp</result>
+			<result name="login">/WEB-INF/jsp/login.jsp</result>
+		</action>
+		
+		<!-- keyWord的struts2配置 -->
+		<action name="key_*" class="keyWordAction" method="{1}">
+			<!-- <result name="findById">/WEB-INF/jsp/key_List.jsp</result> -->
+			<result name="updateKey">/WEB-INF/jsp/keyList.jsp</result>
+			<result name="findAllAction">/WEB-INF/jsp/out_success.jsp</result>
+			<!-- <result name="insertKey">/WEB-INF/jsp/insert_key.jsp</result> -->
+			<result name="deleteKey">/WEB-INF/jsp/keyList.jsp</result>
+			<result name="login">/WEB-INF/jsp/login.jsp</result>
+			<result name="keyFirst">/WEB-INF/jsp/key_List.jsp</result>
+		</action>
+		
+		<!-- filtrate的struts配置 -->
+		<action name="filtrate_*" class="filtrateAction" method="{1}">
+			<!-- <result name="findAllFiltrate">/WEB-INF/jsp/out_success.jsp</result> -->
+			<result name="filtrateList">/WEB-INF/jsp/filtrate_List.jsp</result>
+			<result name="filtrateListRank">/WEB-INF/jsp/filtrate_List_Rank3.jsp</result>
+			<result name="login">/WEB-INF/jsp/login.jsp</result>
+		</action>
+		
+		<!-- user的Struts配置 -->
+		<action name="user_*" class="userAction" method="{1}">
+			<result name="userRegist">/WEB-INF/jsp/login.jsp</result>
+			<result name="loginUser">/WEB-INF/jsp/index.jsp</result>
+			<result name="loginUser2">/WEB-INF/jsp/user_Rank2.jsp</result>
+			<result name="loginUser3">/WEB-INF/jsp/user_Rank3.jsp</result>
+			<result name="login1">/WEB-INF/jsp/login.jsp</result>
+			<result name="registFail">/WEB-INF/jsp/fail.jsp</result>
+			<result name="quit">/WEB-INF/jsp/login.jsp</result>
+			<result name="userList">/WEB-INF/jsp/user_List.jsp</result>
+			<result name="login">/WEB-INF/jsp/login.jsp</result>
+		</action>
+		
+		<!-- 跳转到登录页面的action -->
+		<action name="login_*" class="loginAction" method="{1}">
+			<result name="login">/WEB-INF/jsp/login.jsp</result>
+			<result name="fileUpload">/WEB-INF/jsp/fileUpload.jsp</result>
+			<result name="JumpRegist">/WEB-INF/jsp/regist.jsp</result>
+			<result name="fileUploadIndex">/WEB-INF/jsp/index_fileUpload.jsp</result>
+			<result name="fileUploadKeyWord">/WEB-INF/jsp/key_fileUpload.jsp</result>
+			<result name="filtrateByDate">/WEB-INF/jsp/filtrateByDate.jsp</result>
+		</action>
+		
+	</package>
+	
+</struts>

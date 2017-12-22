@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-7-5 11:41:52 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.elite.vo.OriginalData" table="Original_data" schema="dbo" catalog="DAS">
+        <id name="id" type="java.lang.Integer">
+            <column name="ID" />
+            <generator class="identity" />
+        </id>
+        <property name="serRdNumber" type="string">
+            <column name="ser_rdNumber" length="100" />
+        </property>
+        <property name="acceptNumber" type="string">
+            <column name="accept_number" length="100"/>
+        </property>
+        <property name="skillQueue" type="string">
+            <column name="skill_queue" length="100" />
+        </property>
+        <property name="workGroup" type="string">
+            <column name="work_group" length="100" />
+        </property>
+        <property name="zuoxiNumber" type="string">
+            <column name="zuoxi_number" length="50" />
+        </property>
+        <property name="serName" type="string">
+            <column name="ser_name" length="20" />
+        </property>
+        <property name="serNickname" type="string">
+            <column name="ser_nickname" length="20" />
+        </property>
+        <property name="visitWay" type="string">
+            <column name="visit_way" length="50" />
+        </property>
+        <property name="visitIp" type="string">
+            <column name="visit_IP" length="100" />
+        </property>
+        <property name="ipProvice" type="string">
+            <column name="IP_provice" length="50" />
+        </property>
+        <property name="businessType" type="string">
+            <column name="business_type" length="200" />
+        </property>
+        <property name="clientRank" type="string">
+            <column name="client_rank" length="100" />
+        </property>
+        <property name="clientBrand" type="string">
+            <column name="client_brand" length="100" />
+        </property>
+        <property name="clientProvice" type="string">
+            <column name="client_provice" length="50" />
+        </property>
+        <property name="clientCity" type="string">
+            <column name="client_city" length="100" />
+        </property>
+        <property name="conversationStartTime" type="string">
+            <column name="conversation_startTime" length="100" />
+        </property>
+        <property name="conversationEndTime" type="string">
+            <column name="conversation_endTime" length="100" />
+        </property>
+        <property name="conversationAssess" type="string">
+            <column name="conversation_assess" length="200" />
+        </property>
+        <property name="conversationTime" type="string">
+            <column name="conversation_time" length="50" />
+        </property>
+        <property name="replyIntervalTime" type="string">
+            <column name="reply_intervalTime" length="100" />
+        </property>
+        <property name="satisfactionType" type="string">
+            <column name="satisfaction_type" length="50" />
+        </property>
+        <property name="solveType" type="string">
+            <column name="solve_type" length="100" />
+        </property>
+        <property name="endPerson" type="string">
+            <column name="end_person" length="100" />
+        </property>
+        <property name="endReason" type="string">
+            <column name="end_reason" length="100" />
+        </property>
+        <property name="clientSpeakFrequency" type="string">
+            <column name="clientSpeak_frequency" length="50" />
+        </property>
+        <property name="serSpeakFrequency" type="string">
+            <column name="serSpeak_frequency" length="50" />
+        </property>
+        <property name="interactionFrequency" type="string">
+            <column name="interaction_frequency" length="50" />
+        </property>
+        <property name="isvalidConversation" type="string">
+            <column name="isvalid_conversation" length="50" />
+        </property>
+        <property name="comment" type="string">
+            <column name="comment" length="100" />
+        </property>
+        <property name="conversationContent" type="string">
+            <column name="conversation_content" />
+        </property>
+        <property name="robotConversationContent" type="string">
+            <column name="robotConversation_content" />
+        </property>
+        <property name="keywordID" type="java.lang.Integer">
+        	<column name="keywordID"/>
+        </property>
+        <property name="service" type="string">
+            <column name="service" />
+        </property>
+        <property name="client" type="string">
+            <column name="client" />
+        </property>
+        <property name="indexID" type="string">
+        	<column name="indexID" length="50" />
+        </property>
+        <property name="datatype" type="string">
+        	<column name="datatype"></column>
+        </property>
+    </class>
+</hibernate-mapping>

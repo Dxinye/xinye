@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-7-5 11:41:52 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.elite.vo.Indextable" table="indextable" schema="dbo" catalog="DAS">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="parentID" type="java.lang.Integer">
+            <column name="parentID" />
+        </property>
+        <property name="text" type="string">
+            <column name="text" length="100"/>
+        </property>
+        <property name="attributes" type="string">
+        	<column name="attributes" length="100"></column>
+        </property>
+       <property name="state" type="string">
+        	<column name="state" length="20"></column>
+        </property>
+        <property name="dataID" type="java.lang.Integer">
+        	<column name="dataID"></column>
+        </property>
+        <!-- 配置目录的集合 -->
+        <!-- <set order-by="keywordID" name="keyWord" lazy="false" cascade="delete">
+			<key column="id"/>
+			<one-to-many class="com.elite.vo.KeyWord"/>
+		</set> -->
+		
+		
+        
+    </class>
+</hibernate-mapping>
